@@ -31,13 +31,13 @@
   return self;
 }
 
-- (id) initWithMatchingtype: (int) matchingtype querytype: (int) querytype ranges: (NSMutableArray *) ranges
+- (id) initWithQuerytype: (int) querytype matchingtype: (int) matchingtype ranges: (NSMutableArray *) ranges
 {
   self = [super init];
-  __matchingtype = matchingtype;
-  __matchingtype_isset = YES;
   __querytype = querytype;
   __querytype_isset = YES;
+  __matchingtype = matchingtype;
+  __matchingtype_isset = YES;
   __ranges = [ranges retain_stub];
   __ranges_isset = YES;
   return self;
@@ -46,15 +46,15 @@
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"matchingtype"])
-  {
-    __matchingtype = [decoder decodeIntForKey: @"matchingtype"];
-    __matchingtype_isset = YES;
-  }
   if ([decoder containsValueForKey: @"querytype"])
   {
     __querytype = [decoder decodeIntForKey: @"querytype"];
     __querytype_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"matchingtype"])
+  {
+    __matchingtype = [decoder decodeIntForKey: @"matchingtype"];
+    __matchingtype_isset = YES;
   }
   if ([decoder containsValueForKey: @"ranges"])
   {
@@ -66,13 +66,13 @@
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__matchingtype_isset)
-  {
-    [encoder encodeInt: __matchingtype forKey: @"matchingtype"];
-  }
   if (__querytype_isset)
   {
     [encoder encodeInt: __querytype forKey: @"querytype"];
+  }
+  if (__matchingtype_isset)
+  {
+    [encoder encodeInt: __matchingtype forKey: @"matchingtype"];
   }
   if (__ranges_isset)
   {
@@ -83,15 +83,15 @@
 - (NSUInteger) hash
 {
   NSUInteger hash = 17;
-  hash = (hash * 31) ^ __matchingtype_isset ? 2654435761 : 0;
-  if (__matchingtype_isset)
-  {
-    hash = (hash * 31) ^ [@(__matchingtype) hash];
-  }
   hash = (hash * 31) ^ __querytype_isset ? 2654435761 : 0;
   if (__querytype_isset)
   {
     hash = (hash * 31) ^ [@(__querytype) hash];
+  }
+  hash = (hash * 31) ^ __matchingtype_isset ? 2654435761 : 0;
+  if (__matchingtype_isset)
+  {
+    hash = (hash * 31) ^ [@(__matchingtype) hash];
   }
   hash = (hash * 31) ^ __ranges_isset ? 2654435761 : 0;
   if (__ranges_isset)
@@ -110,12 +110,12 @@
     return NO;
   }
   QueryVector *other = (QueryVector *)anObject;
-  if ((__matchingtype_isset != other->__matchingtype_isset) ||
-      (__matchingtype_isset && (__matchingtype != other->__matchingtype))) {
-    return NO;
-  }
   if ((__querytype_isset != other->__querytype_isset) ||
       (__querytype_isset && (__querytype != other->__querytype))) {
+    return NO;
+  }
+  if ((__matchingtype_isset != other->__matchingtype_isset) ||
+      (__matchingtype_isset && (__matchingtype != other->__matchingtype))) {
     return NO;
   }
   if ((__ranges_isset != other->__ranges_isset) ||
@@ -129,23 +129,6 @@
 {
   [__ranges release_stub];
   [super dealloc_stub];
-}
-
-- (int) matchingtype {
-  return __matchingtype;
-}
-
-- (void) setMatchingtype: (int) matchingtype {
-  __matchingtype = matchingtype;
-  __matchingtype_isset = YES;
-}
-
-- (BOOL) matchingtypeIsSet {
-  return __matchingtype_isset;
-}
-
-- (void) unsetMatchingtype {
-  __matchingtype_isset = NO;
 }
 
 - (int) querytype {
@@ -163,6 +146,23 @@
 
 - (void) unsetQuerytype {
   __querytype_isset = NO;
+}
+
+- (int) matchingtype {
+  return __matchingtype;
+}
+
+- (void) setMatchingtype: (int) matchingtype {
+  __matchingtype = matchingtype;
+  __matchingtype_isset = YES;
+}
+
+- (BOOL) matchingtypeIsSet {
+  return __matchingtype_isset;
+}
+
+- (void) unsetMatchingtype {
+  __matchingtype_isset = NO;
 }
 
 - (NSMutableArray *) ranges {
@@ -204,7 +204,7 @@
       case 1:
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
-          [self setMatchingtype: fieldValue];
+          [self setQuerytype: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -212,7 +212,7 @@
       case 2:
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
-          [self setQuerytype: fieldValue];
+          [self setMatchingtype: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -246,14 +246,14 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"QueryVector"];
-  if (__matchingtype_isset) {
-    [outProtocol writeFieldBeginWithName: @"matchingtype" type: TType_I32 fieldID: 1];
-    [outProtocol writeI32: __matchingtype];
+  if (__querytype_isset) {
+    [outProtocol writeFieldBeginWithName: @"querytype" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __querytype];
     [outProtocol writeFieldEnd];
   }
-  if (__querytype_isset) {
-    [outProtocol writeFieldBeginWithName: @"querytype" type: TType_I32 fieldID: 2];
-    [outProtocol writeI32: __querytype];
+  if (__matchingtype_isset) {
+    [outProtocol writeFieldBeginWithName: @"matchingtype" type: TType_I32 fieldID: 2];
+    [outProtocol writeI32: __matchingtype];
     [outProtocol writeFieldEnd];
   }
   if (__ranges_isset) {
@@ -281,10 +281,10 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"QueryVector("];
-  [ms appendString: @"matchingtype:"];
-  [ms appendFormat: @"%i", __matchingtype];
-  [ms appendString: @",querytype:"];
+  [ms appendString: @"querytype:"];
   [ms appendFormat: @"%i", __querytype];
+  [ms appendString: @",matchingtype:"];
+  [ms appendFormat: @"%i", __matchingtype];
   [ms appendString: @",ranges:"];
   [ms appendFormat: @"%@", __ranges];
   [ms appendString: @")"];

@@ -66,21 +66,21 @@ class MatchingType:
 class QueryVector:
   """
   Attributes:
-   - matchingtype
    - querytype
+   - matchingtype
    - ranges
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'matchingtype', None, None, ), # 1
-    (2, TType.I32, 'querytype', None, None, ), # 2
+    (1, TType.I32, 'querytype', None, None, ), # 1
+    (2, TType.I32, 'matchingtype', None, None, ), # 2
     (3, TType.LIST, 'ranges', (TType.STRING,None), None, ), # 3
   )
 
-  def __init__(self, matchingtype=None, querytype=None, ranges=None,):
-    self.matchingtype = matchingtype
+  def __init__(self, querytype=None, matchingtype=None, ranges=None,):
     self.querytype = querytype
+    self.matchingtype = matchingtype
     self.ranges = ranges
 
   def read(self, iprot):
@@ -94,12 +94,12 @@ class QueryVector:
         break
       if fid == 1:
         if ftype == TType.I32:
-          self.matchingtype = iprot.readI32()
+          self.querytype = iprot.readI32()
         else:
           iprot.skip(ftype)
       elif fid == 2:
         if ftype == TType.I32:
-          self.querytype = iprot.readI32()
+          self.matchingtype = iprot.readI32()
         else:
           iprot.skip(ftype)
       elif fid == 3:
@@ -122,13 +122,13 @@ class QueryVector:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('QueryVector')
-    if self.matchingtype is not None:
-      oprot.writeFieldBegin('matchingtype', TType.I32, 1)
-      oprot.writeI32(self.matchingtype)
-      oprot.writeFieldEnd()
     if self.querytype is not None:
-      oprot.writeFieldBegin('querytype', TType.I32, 2)
+      oprot.writeFieldBegin('querytype', TType.I32, 1)
       oprot.writeI32(self.querytype)
+      oprot.writeFieldEnd()
+    if self.matchingtype is not None:
+      oprot.writeFieldBegin('matchingtype', TType.I32, 2)
+      oprot.writeI32(self.matchingtype)
       oprot.writeFieldEnd()
     if self.ranges is not None:
       oprot.writeFieldBegin('ranges', TType.LIST, 3)
@@ -146,8 +146,8 @@ class QueryVector:
 
   def __hash__(self):
     value = 17
-    value = (value * 31) ^ hash(self.matchingtype)
     value = (value * 31) ^ hash(self.querytype)
+    value = (value * 31) ^ hash(self.matchingtype)
     value = (value * 31) ^ hash(self.ranges)
     return value
 

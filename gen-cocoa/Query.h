@@ -36,23 +36,23 @@ enum MatchingType {
 };
 
 @interface QueryVector : NSObject <TBase, NSCoding> {
-  int __matchingtype;
   int __querytype;
+  int __matchingtype;
   NSMutableArray * __ranges;
 
-  BOOL __matchingtype_isset;
   BOOL __querytype_isset;
+  BOOL __matchingtype_isset;
   BOOL __ranges_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=matchingtype, setter=setMatchingtype:) int matchingtype;
 @property (nonatomic, getter=querytype, setter=setQuerytype:) int querytype;
+@property (nonatomic, getter=matchingtype, setter=setMatchingtype:) int matchingtype;
 @property (nonatomic, retain, getter=ranges, setter=setRanges:) NSMutableArray * ranges;
 #endif
 
 - (id) init;
-- (id) initWithMatchingtype: (int) matchingtype querytype: (int) querytype ranges: (NSMutableArray *) ranges;
+- (id) initWithQuerytype: (int) querytype matchingtype: (int) matchingtype ranges: (NSMutableArray *) ranges;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -60,16 +60,16 @@ enum MatchingType {
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (int) matchingtype;
-- (void) setMatchingtype: (int) matchingtype;
-#endif
-- (BOOL) matchingtypeIsSet;
-
-#if !__has_feature(objc_arc)
 - (int) querytype;
 - (void) setQuerytype: (int) querytype;
 #endif
 - (BOOL) querytypeIsSet;
+
+#if !__has_feature(objc_arc)
+- (int) matchingtype;
+- (void) setMatchingtype: (int) matchingtype;
+#endif
+- (BOOL) matchingtypeIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSMutableArray *) ranges;

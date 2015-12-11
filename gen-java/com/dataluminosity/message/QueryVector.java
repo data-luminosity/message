@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVector._Fields>, java.io.Serializable, Cloneable, Comparable<QueryVector> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("QueryVector");
 
-  private static final org.apache.thrift.protocol.TField MATCHINGTYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("matchingtype", org.apache.thrift.protocol.TType.I32, (short)1);
-  private static final org.apache.thrift.protocol.TField QUERYTYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("querytype", org.apache.thrift.protocol.TType.I32, (short)2);
+  private static final org.apache.thrift.protocol.TField QUERYTYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("querytype", org.apache.thrift.protocol.TType.I32, (short)1);
+  private static final org.apache.thrift.protocol.TField MATCHINGTYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("matchingtype", org.apache.thrift.protocol.TType.I32, (short)2);
   private static final org.apache.thrift.protocol.TField RANGES_FIELD_DESC = new org.apache.thrift.protocol.TField("ranges", org.apache.thrift.protocol.TType.LIST, (short)3);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
@@ -50,28 +50,28 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
 
   /**
    * 
-   * @see MatchingType
-   */
-  public MatchingType matchingtype; // required
-  /**
-   * 
    * @see SensorType
    */
   public SensorType querytype; // required
+  /**
+   * 
+   * @see MatchingType
+   */
+  public MatchingType matchingtype; // required
   public List<String> ranges; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     /**
      * 
-     * @see MatchingType
-     */
-    MATCHINGTYPE((short)1, "matchingtype"),
-    /**
-     * 
      * @see SensorType
      */
-    QUERYTYPE((short)2, "querytype"),
+    QUERYTYPE((short)1, "querytype"),
+    /**
+     * 
+     * @see MatchingType
+     */
+    MATCHINGTYPE((short)2, "matchingtype"),
     RANGES((short)3, "ranges");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
@@ -87,10 +87,10 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // MATCHINGTYPE
-          return MATCHINGTYPE;
-        case 2: // QUERYTYPE
+        case 1: // QUERYTYPE
           return QUERYTYPE;
+        case 2: // MATCHINGTYPE
+          return MATCHINGTYPE;
         case 3: // RANGES
           return RANGES;
         default:
@@ -136,10 +136,10 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.MATCHINGTYPE, new org.apache.thrift.meta_data.FieldMetaData("matchingtype", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, MatchingType.class)));
     tmpMap.put(_Fields.QUERYTYPE, new org.apache.thrift.meta_data.FieldMetaData("querytype", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, SensorType.class)));
+    tmpMap.put(_Fields.MATCHINGTYPE, new org.apache.thrift.meta_data.FieldMetaData("matchingtype", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, MatchingType.class)));
     tmpMap.put(_Fields.RANGES, new org.apache.thrift.meta_data.FieldMetaData("ranges", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
             new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING))));
@@ -151,13 +151,13 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
   }
 
   public QueryVector(
-    MatchingType matchingtype,
     SensorType querytype,
+    MatchingType matchingtype,
     List<String> ranges)
   {
     this();
-    this.matchingtype = matchingtype;
     this.querytype = querytype;
+    this.matchingtype = matchingtype;
     this.ranges = ranges;
   }
 
@@ -165,11 +165,11 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
    * Performs a deep copy on <i>other</i>.
    */
   public QueryVector(QueryVector other) {
-    if (other.isSetMatchingtype()) {
-      this.matchingtype = other.matchingtype;
-    }
     if (other.isSetQuerytype()) {
       this.querytype = other.querytype;
+    }
+    if (other.isSetMatchingtype()) {
+      this.matchingtype = other.matchingtype;
     }
     if (other.isSetRanges()) {
       List<String> __this__ranges = new ArrayList<String>(other.ranges);
@@ -183,41 +183,9 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
 
   @Override
   public void clear() {
-    this.matchingtype = null;
     this.querytype = null;
-    this.ranges = null;
-  }
-
-  /**
-   * 
-   * @see MatchingType
-   */
-  public MatchingType getMatchingtype() {
-    return this.matchingtype;
-  }
-
-  /**
-   * 
-   * @see MatchingType
-   */
-  public QueryVector setMatchingtype(MatchingType matchingtype) {
-    this.matchingtype = matchingtype;
-    return this;
-  }
-
-  public void unsetMatchingtype() {
     this.matchingtype = null;
-  }
-
-  /** Returns true if field matchingtype is set (has been assigned a value) and false otherwise */
-  public boolean isSetMatchingtype() {
-    return this.matchingtype != null;
-  }
-
-  public void setMatchingtypeIsSet(boolean value) {
-    if (!value) {
-      this.matchingtype = null;
-    }
+    this.ranges = null;
   }
 
   /**
@@ -249,6 +217,38 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
   public void setQuerytypeIsSet(boolean value) {
     if (!value) {
       this.querytype = null;
+    }
+  }
+
+  /**
+   * 
+   * @see MatchingType
+   */
+  public MatchingType getMatchingtype() {
+    return this.matchingtype;
+  }
+
+  /**
+   * 
+   * @see MatchingType
+   */
+  public QueryVector setMatchingtype(MatchingType matchingtype) {
+    this.matchingtype = matchingtype;
+    return this;
+  }
+
+  public void unsetMatchingtype() {
+    this.matchingtype = null;
+  }
+
+  /** Returns true if field matchingtype is set (has been assigned a value) and false otherwise */
+  public boolean isSetMatchingtype() {
+    return this.matchingtype != null;
+  }
+
+  public void setMatchingtypeIsSet(boolean value) {
+    if (!value) {
+      this.matchingtype = null;
     }
   }
 
@@ -293,19 +293,19 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
 
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case MATCHINGTYPE:
-      if (value == null) {
-        unsetMatchingtype();
-      } else {
-        setMatchingtype((MatchingType)value);
-      }
-      break;
-
     case QUERYTYPE:
       if (value == null) {
         unsetQuerytype();
       } else {
         setQuerytype((SensorType)value);
+      }
+      break;
+
+    case MATCHINGTYPE:
+      if (value == null) {
+        unsetMatchingtype();
+      } else {
+        setMatchingtype((MatchingType)value);
       }
       break;
 
@@ -322,11 +322,11 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case MATCHINGTYPE:
-      return getMatchingtype();
-
     case QUERYTYPE:
       return getQuerytype();
+
+    case MATCHINGTYPE:
+      return getMatchingtype();
 
     case RANGES:
       return getRanges();
@@ -342,10 +342,10 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
     }
 
     switch (field) {
-    case MATCHINGTYPE:
-      return isSetMatchingtype();
     case QUERYTYPE:
       return isSetQuerytype();
+    case MATCHINGTYPE:
+      return isSetMatchingtype();
     case RANGES:
       return isSetRanges();
     }
@@ -365,21 +365,21 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
     if (that == null)
       return false;
 
-    boolean this_present_matchingtype = true && this.isSetMatchingtype();
-    boolean that_present_matchingtype = true && that.isSetMatchingtype();
-    if (this_present_matchingtype || that_present_matchingtype) {
-      if (!(this_present_matchingtype && that_present_matchingtype))
-        return false;
-      if (!this.matchingtype.equals(that.matchingtype))
-        return false;
-    }
-
     boolean this_present_querytype = true && this.isSetQuerytype();
     boolean that_present_querytype = true && that.isSetQuerytype();
     if (this_present_querytype || that_present_querytype) {
       if (!(this_present_querytype && that_present_querytype))
         return false;
       if (!this.querytype.equals(that.querytype))
+        return false;
+    }
+
+    boolean this_present_matchingtype = true && this.isSetMatchingtype();
+    boolean that_present_matchingtype = true && that.isSetMatchingtype();
+    if (this_present_matchingtype || that_present_matchingtype) {
+      if (!(this_present_matchingtype && that_present_matchingtype))
+        return false;
+      if (!this.matchingtype.equals(that.matchingtype))
         return false;
     }
 
@@ -399,15 +399,15 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
   public int hashCode() {
     List<Object> list = new ArrayList<Object>();
 
-    boolean present_matchingtype = true && (isSetMatchingtype());
-    list.add(present_matchingtype);
-    if (present_matchingtype)
-      list.add(matchingtype.getValue());
-
     boolean present_querytype = true && (isSetQuerytype());
     list.add(present_querytype);
     if (present_querytype)
       list.add(querytype.getValue());
+
+    boolean present_matchingtype = true && (isSetMatchingtype());
+    list.add(present_matchingtype);
+    if (present_matchingtype)
+      list.add(matchingtype.getValue());
 
     boolean present_ranges = true && (isSetRanges());
     list.add(present_ranges);
@@ -425,22 +425,22 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetMatchingtype()).compareTo(other.isSetMatchingtype());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetMatchingtype()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.matchingtype, other.matchingtype);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
     lastComparison = Boolean.valueOf(isSetQuerytype()).compareTo(other.isSetQuerytype());
     if (lastComparison != 0) {
       return lastComparison;
     }
     if (isSetQuerytype()) {
       lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.querytype, other.querytype);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetMatchingtype()).compareTo(other.isSetMatchingtype());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetMatchingtype()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.matchingtype, other.matchingtype);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -475,19 +475,19 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
     StringBuilder sb = new StringBuilder("QueryVector(");
     boolean first = true;
 
-    sb.append("matchingtype:");
-    if (this.matchingtype == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.matchingtype);
-    }
-    first = false;
-    if (!first) sb.append(", ");
     sb.append("querytype:");
     if (this.querytype == null) {
       sb.append("null");
     } else {
       sb.append(this.querytype);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("matchingtype:");
+    if (this.matchingtype == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.matchingtype);
     }
     first = false;
     if (!first) sb.append(", ");
@@ -541,18 +541,18 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
           break;
         }
         switch (schemeField.id) {
-          case 1: // MATCHINGTYPE
+          case 1: // QUERYTYPE
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.matchingtype = com.dataluminosity.message.MatchingType.findByValue(iprot.readI32());
-              struct.setMatchingtypeIsSet(true);
+              struct.querytype = com.dataluminosity.message.SensorType.findByValue(iprot.readI32());
+              struct.setQuerytypeIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // QUERYTYPE
+          case 2: // MATCHINGTYPE
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.querytype = com.dataluminosity.message.SensorType.findByValue(iprot.readI32());
-              struct.setQuerytypeIsSet(true);
+              struct.matchingtype = com.dataluminosity.message.MatchingType.findByValue(iprot.readI32());
+              struct.setMatchingtypeIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -590,14 +590,14 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.matchingtype != null) {
-        oprot.writeFieldBegin(MATCHINGTYPE_FIELD_DESC);
-        oprot.writeI32(struct.matchingtype.getValue());
-        oprot.writeFieldEnd();
-      }
       if (struct.querytype != null) {
         oprot.writeFieldBegin(QUERYTYPE_FIELD_DESC);
         oprot.writeI32(struct.querytype.getValue());
+        oprot.writeFieldEnd();
+      }
+      if (struct.matchingtype != null) {
+        oprot.writeFieldBegin(MATCHINGTYPE_FIELD_DESC);
+        oprot.writeI32(struct.matchingtype.getValue());
         oprot.writeFieldEnd();
       }
       if (struct.ranges != null) {
@@ -630,21 +630,21 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
     public void write(org.apache.thrift.protocol.TProtocol prot, QueryVector struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
-      if (struct.isSetMatchingtype()) {
+      if (struct.isSetQuerytype()) {
         optionals.set(0);
       }
-      if (struct.isSetQuerytype()) {
+      if (struct.isSetMatchingtype()) {
         optionals.set(1);
       }
       if (struct.isSetRanges()) {
         optionals.set(2);
       }
       oprot.writeBitSet(optionals, 3);
-      if (struct.isSetMatchingtype()) {
-        oprot.writeI32(struct.matchingtype.getValue());
-      }
       if (struct.isSetQuerytype()) {
         oprot.writeI32(struct.querytype.getValue());
+      }
+      if (struct.isSetMatchingtype()) {
+        oprot.writeI32(struct.matchingtype.getValue());
       }
       if (struct.isSetRanges()) {
         {
@@ -662,12 +662,12 @@ public class QueryVector implements org.apache.thrift.TBase<QueryVector, QueryVe
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(3);
       if (incoming.get(0)) {
-        struct.matchingtype = com.dataluminosity.message.MatchingType.findByValue(iprot.readI32());
-        struct.setMatchingtypeIsSet(true);
-      }
-      if (incoming.get(1)) {
         struct.querytype = com.dataluminosity.message.SensorType.findByValue(iprot.readI32());
         struct.setQuerytypeIsSet(true);
+      }
+      if (incoming.get(1)) {
+        struct.matchingtype = com.dataluminosity.message.MatchingType.findByValue(iprot.readI32());
+        struct.setMatchingtypeIsSet(true);
       }
       if (incoming.get(2)) {
         {
