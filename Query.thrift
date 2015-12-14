@@ -17,8 +17,8 @@ enum MatchingType {
 }
 
 struct QueryVector {
-    1: SensorType querytype,
-    2: MatchingType matchingtype,
+    1: SensorType sensorType,
+    2: MatchingType matchingType,
     3: list<string> ranges
 }
 
@@ -31,8 +31,8 @@ struct Query {
     6: SensorType queryType,
     7: double epsilon,
     8: QueryVector queryVector,
-    9: string p,
-    10: string q,
+    9: string flipOne,
+    10: string flipTwo,
     11: i64 versionId
 }
 

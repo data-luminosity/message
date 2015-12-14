@@ -36,23 +36,23 @@ enum MatchingType {
 };
 
 @interface QueryVector : NSObject <TBase, NSCoding> {
-  int __querytype;
-  int __matchingtype;
+  int __sensorType;
+  int __matchingType;
   NSMutableArray * __ranges;
 
-  BOOL __querytype_isset;
-  BOOL __matchingtype_isset;
+  BOOL __sensorType_isset;
+  BOOL __matchingType_isset;
   BOOL __ranges_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=querytype, setter=setQuerytype:) int querytype;
-@property (nonatomic, getter=matchingtype, setter=setMatchingtype:) int matchingtype;
+@property (nonatomic, getter=sensorType, setter=setSensorType:) int sensorType;
+@property (nonatomic, getter=matchingType, setter=setMatchingType:) int matchingType;
 @property (nonatomic, retain, getter=ranges, setter=setRanges:) NSMutableArray * ranges;
 #endif
 
 - (id) init;
-- (id) initWithQuerytype: (int) querytype matchingtype: (int) matchingtype ranges: (NSMutableArray *) ranges;
+- (id) initWithSensorType: (int) sensorType matchingType: (int) matchingType ranges: (NSMutableArray *) ranges;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -60,16 +60,16 @@ enum MatchingType {
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (int) querytype;
-- (void) setQuerytype: (int) querytype;
+- (int) sensorType;
+- (void) setSensorType: (int) sensorType;
 #endif
-- (BOOL) querytypeIsSet;
+- (BOOL) sensorTypeIsSet;
 
 #if !__has_feature(objc_arc)
-- (int) matchingtype;
-- (void) setMatchingtype: (int) matchingtype;
+- (int) matchingType;
+- (void) setMatchingType: (int) matchingType;
 #endif
-- (BOOL) matchingtypeIsSet;
+- (BOOL) matchingTypeIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSMutableArray *) ranges;
@@ -88,8 +88,8 @@ enum MatchingType {
   int __queryType;
   double __epsilon;
   QueryVector * __queryVector;
-  NSString * __p;
-  NSString * __q;
+  NSString * __flipOne;
+  NSString * __flipTwo;
   int64_t __versionId;
 
   BOOL __analystId_isset;
@@ -100,8 +100,8 @@ enum MatchingType {
   BOOL __queryType_isset;
   BOOL __epsilon_isset;
   BOOL __queryVector_isset;
-  BOOL __p_isset;
-  BOOL __q_isset;
+  BOOL __flipOne_isset;
+  BOOL __flipTwo_isset;
   BOOL __versionId_isset;
 }
 
@@ -114,13 +114,13 @@ enum MatchingType {
 @property (nonatomic, getter=queryType, setter=setQueryType:) int queryType;
 @property (nonatomic, getter=epsilon, setter=setEpsilon:) double epsilon;
 @property (nonatomic, retain, getter=queryVector, setter=setQueryVector:) QueryVector * queryVector;
-@property (nonatomic, retain, getter=p, setter=setP:) NSString * p;
-@property (nonatomic, retain, getter=q, setter=setQ:) NSString * q;
+@property (nonatomic, retain, getter=flipOne, setter=setFlipOne:) NSString * flipOne;
+@property (nonatomic, retain, getter=flipTwo, setter=setFlipTwo:) NSString * flipTwo;
 @property (nonatomic, getter=versionId, setter=setVersionId:) int64_t versionId;
 #endif
 
 - (id) init;
-- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch queryType: (int) queryType epsilon: (double) epsilon queryVector: (QueryVector *) queryVector p: (NSString *) p q: (NSString *) q versionId: (int64_t) versionId;
+- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch queryType: (int) queryType epsilon: (double) epsilon queryVector: (QueryVector *) queryVector flipOne: (NSString *) flipOne flipTwo: (NSString *) flipTwo versionId: (int64_t) versionId;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -176,16 +176,16 @@ enum MatchingType {
 - (BOOL) queryVectorIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) p;
-- (void) setP: (NSString *) p;
+- (NSString *) flipOne;
+- (void) setFlipOne: (NSString *) flipOne;
 #endif
-- (BOOL) pIsSet;
+- (BOOL) flipOneIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSString *) q;
-- (void) setQ: (NSString *) q;
+- (NSString *) flipTwo;
+- (void) setFlipTwo: (NSString *) flipTwo;
 #endif
-- (BOOL) qIsSet;
+- (BOOL) flipTwoIsSet;
 
 #if !__has_feature(objc_arc)
 - (int64_t) versionId;

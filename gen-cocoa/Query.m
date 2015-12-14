@@ -31,13 +31,13 @@
   return self;
 }
 
-- (id) initWithQuerytype: (int) querytype matchingtype: (int) matchingtype ranges: (NSMutableArray *) ranges
+- (id) initWithSensorType: (int) sensorType matchingType: (int) matchingType ranges: (NSMutableArray *) ranges
 {
   self = [super init];
-  __querytype = querytype;
-  __querytype_isset = YES;
-  __matchingtype = matchingtype;
-  __matchingtype_isset = YES;
+  __sensorType = sensorType;
+  __sensorType_isset = YES;
+  __matchingType = matchingType;
+  __matchingType_isset = YES;
   __ranges = [ranges retain_stub];
   __ranges_isset = YES;
   return self;
@@ -46,15 +46,15 @@
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"querytype"])
+  if ([decoder containsValueForKey: @"sensorType"])
   {
-    __querytype = [decoder decodeIntForKey: @"querytype"];
-    __querytype_isset = YES;
+    __sensorType = [decoder decodeIntForKey: @"sensorType"];
+    __sensorType_isset = YES;
   }
-  if ([decoder containsValueForKey: @"matchingtype"])
+  if ([decoder containsValueForKey: @"matchingType"])
   {
-    __matchingtype = [decoder decodeIntForKey: @"matchingtype"];
-    __matchingtype_isset = YES;
+    __matchingType = [decoder decodeIntForKey: @"matchingType"];
+    __matchingType_isset = YES;
   }
   if ([decoder containsValueForKey: @"ranges"])
   {
@@ -66,13 +66,13 @@
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__querytype_isset)
+  if (__sensorType_isset)
   {
-    [encoder encodeInt: __querytype forKey: @"querytype"];
+    [encoder encodeInt: __sensorType forKey: @"sensorType"];
   }
-  if (__matchingtype_isset)
+  if (__matchingType_isset)
   {
-    [encoder encodeInt: __matchingtype forKey: @"matchingtype"];
+    [encoder encodeInt: __matchingType forKey: @"matchingType"];
   }
   if (__ranges_isset)
   {
@@ -83,15 +83,15 @@
 - (NSUInteger) hash
 {
   NSUInteger hash = 17;
-  hash = (hash * 31) ^ __querytype_isset ? 2654435761 : 0;
-  if (__querytype_isset)
+  hash = (hash * 31) ^ __sensorType_isset ? 2654435761 : 0;
+  if (__sensorType_isset)
   {
-    hash = (hash * 31) ^ [@(__querytype) hash];
+    hash = (hash * 31) ^ [@(__sensorType) hash];
   }
-  hash = (hash * 31) ^ __matchingtype_isset ? 2654435761 : 0;
-  if (__matchingtype_isset)
+  hash = (hash * 31) ^ __matchingType_isset ? 2654435761 : 0;
+  if (__matchingType_isset)
   {
-    hash = (hash * 31) ^ [@(__matchingtype) hash];
+    hash = (hash * 31) ^ [@(__matchingType) hash];
   }
   hash = (hash * 31) ^ __ranges_isset ? 2654435761 : 0;
   if (__ranges_isset)
@@ -110,12 +110,12 @@
     return NO;
   }
   QueryVector *other = (QueryVector *)anObject;
-  if ((__querytype_isset != other->__querytype_isset) ||
-      (__querytype_isset && (__querytype != other->__querytype))) {
+  if ((__sensorType_isset != other->__sensorType_isset) ||
+      (__sensorType_isset && (__sensorType != other->__sensorType))) {
     return NO;
   }
-  if ((__matchingtype_isset != other->__matchingtype_isset) ||
-      (__matchingtype_isset && (__matchingtype != other->__matchingtype))) {
+  if ((__matchingType_isset != other->__matchingType_isset) ||
+      (__matchingType_isset && (__matchingType != other->__matchingType))) {
     return NO;
   }
   if ((__ranges_isset != other->__ranges_isset) ||
@@ -131,38 +131,38 @@
   [super dealloc_stub];
 }
 
-- (int) querytype {
-  return __querytype;
+- (int) sensorType {
+  return __sensorType;
 }
 
-- (void) setQuerytype: (int) querytype {
-  __querytype = querytype;
-  __querytype_isset = YES;
+- (void) setSensorType: (int) sensorType {
+  __sensorType = sensorType;
+  __sensorType_isset = YES;
 }
 
-- (BOOL) querytypeIsSet {
-  return __querytype_isset;
+- (BOOL) sensorTypeIsSet {
+  return __sensorType_isset;
 }
 
-- (void) unsetQuerytype {
-  __querytype_isset = NO;
+- (void) unsetSensorType {
+  __sensorType_isset = NO;
 }
 
-- (int) matchingtype {
-  return __matchingtype;
+- (int) matchingType {
+  return __matchingType;
 }
 
-- (void) setMatchingtype: (int) matchingtype {
-  __matchingtype = matchingtype;
-  __matchingtype_isset = YES;
+- (void) setMatchingType: (int) matchingType {
+  __matchingType = matchingType;
+  __matchingType_isset = YES;
 }
 
-- (BOOL) matchingtypeIsSet {
-  return __matchingtype_isset;
+- (BOOL) matchingTypeIsSet {
+  return __matchingType_isset;
 }
 
-- (void) unsetMatchingtype {
-  __matchingtype_isset = NO;
+- (void) unsetMatchingType {
+  __matchingType_isset = NO;
 }
 
 - (NSMutableArray *) ranges {
@@ -204,7 +204,7 @@
       case 1:
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
-          [self setQuerytype: fieldValue];
+          [self setSensorType: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -212,7 +212,7 @@
       case 2:
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
-          [self setMatchingtype: fieldValue];
+          [self setMatchingType: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -246,14 +246,14 @@
 
 - (void) write: (id <TProtocol>) outProtocol {
   [outProtocol writeStructBeginWithName: @"QueryVector"];
-  if (__querytype_isset) {
-    [outProtocol writeFieldBeginWithName: @"querytype" type: TType_I32 fieldID: 1];
-    [outProtocol writeI32: __querytype];
+  if (__sensorType_isset) {
+    [outProtocol writeFieldBeginWithName: @"sensorType" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __sensorType];
     [outProtocol writeFieldEnd];
   }
-  if (__matchingtype_isset) {
-    [outProtocol writeFieldBeginWithName: @"matchingtype" type: TType_I32 fieldID: 2];
-    [outProtocol writeI32: __matchingtype];
+  if (__matchingType_isset) {
+    [outProtocol writeFieldBeginWithName: @"matchingType" type: TType_I32 fieldID: 2];
+    [outProtocol writeI32: __matchingType];
     [outProtocol writeFieldEnd];
   }
   if (__ranges_isset) {
@@ -281,10 +281,10 @@
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"QueryVector("];
-  [ms appendString: @"querytype:"];
-  [ms appendFormat: @"%i", __querytype];
-  [ms appendString: @",matchingtype:"];
-  [ms appendFormat: @"%i", __matchingtype];
+  [ms appendString: @"sensorType:"];
+  [ms appendFormat: @"%i", __sensorType];
+  [ms appendString: @",matchingType:"];
+  [ms appendFormat: @"%i", __matchingType];
   [ms appendString: @",ranges:"];
   [ms appendFormat: @"%@", __ranges];
   [ms appendString: @")"];
@@ -303,7 +303,7 @@
   return self;
 }
 
-- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch queryType: (int) queryType epsilon: (double) epsilon queryVector: (QueryVector *) queryVector p: (NSString *) p q: (NSString *) q versionId: (int64_t) versionId
+- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch queryType: (int) queryType epsilon: (double) epsilon queryVector: (QueryVector *) queryVector flipOne: (NSString *) flipOne flipTwo: (NSString *) flipTwo versionId: (int64_t) versionId
 {
   self = [super init];
   __analystId = analystId;
@@ -322,10 +322,10 @@
   __epsilon_isset = YES;
   __queryVector = [queryVector retain_stub];
   __queryVector_isset = YES;
-  __p = [p retain_stub];
-  __p_isset = YES;
-  __q = [q retain_stub];
-  __q_isset = YES;
+  __flipOne = [flipOne retain_stub];
+  __flipOne_isset = YES;
+  __flipTwo = [flipTwo retain_stub];
+  __flipTwo_isset = YES;
   __versionId = versionId;
   __versionId_isset = YES;
   return self;
@@ -374,15 +374,15 @@
     __queryVector = [[decoder decodeObjectForKey: @"queryVector"] retain_stub];
     __queryVector_isset = YES;
   }
-  if ([decoder containsValueForKey: @"p"])
+  if ([decoder containsValueForKey: @"flipOne"])
   {
-    __p = [[decoder decodeObjectForKey: @"p"] retain_stub];
-    __p_isset = YES;
+    __flipOne = [[decoder decodeObjectForKey: @"flipOne"] retain_stub];
+    __flipOne_isset = YES;
   }
-  if ([decoder containsValueForKey: @"q"])
+  if ([decoder containsValueForKey: @"flipTwo"])
   {
-    __q = [[decoder decodeObjectForKey: @"q"] retain_stub];
-    __q_isset = YES;
+    __flipTwo = [[decoder decodeObjectForKey: @"flipTwo"] retain_stub];
+    __flipTwo_isset = YES;
   }
   if ([decoder containsValueForKey: @"versionId"])
   {
@@ -426,13 +426,13 @@
   {
     [encoder encodeObject: __queryVector forKey: @"queryVector"];
   }
-  if (__p_isset)
+  if (__flipOne_isset)
   {
-    [encoder encodeObject: __p forKey: @"p"];
+    [encoder encodeObject: __flipOne forKey: @"flipOne"];
   }
-  if (__q_isset)
+  if (__flipTwo_isset)
   {
-    [encoder encodeObject: __q forKey: @"q"];
+    [encoder encodeObject: __flipTwo forKey: @"flipTwo"];
   }
   if (__versionId_isset)
   {
@@ -483,15 +483,15 @@
   {
     hash = (hash * 31) ^ [__queryVector hash];
   }
-  hash = (hash * 31) ^ __p_isset ? 2654435761 : 0;
-  if (__p_isset)
+  hash = (hash * 31) ^ __flipOne_isset ? 2654435761 : 0;
+  if (__flipOne_isset)
   {
-    hash = (hash * 31) ^ [__p hash];
+    hash = (hash * 31) ^ [__flipOne hash];
   }
-  hash = (hash * 31) ^ __q_isset ? 2654435761 : 0;
-  if (__q_isset)
+  hash = (hash * 31) ^ __flipTwo_isset ? 2654435761 : 0;
+  if (__flipTwo_isset)
   {
-    hash = (hash * 31) ^ [__q hash];
+    hash = (hash * 31) ^ [__flipTwo hash];
   }
   hash = (hash * 31) ^ __versionId_isset ? 2654435761 : 0;
   if (__versionId_isset)
@@ -542,12 +542,12 @@
       (__queryVector_isset && ((__queryVector || other->__queryVector) && ![__queryVector isEqual:other->__queryVector]))) {
     return NO;
   }
-  if ((__p_isset != other->__p_isset) ||
-      (__p_isset && ((__p || other->__p) && ![__p isEqual:other->__p]))) {
+  if ((__flipOne_isset != other->__flipOne_isset) ||
+      (__flipOne_isset && ((__flipOne || other->__flipOne) && ![__flipOne isEqual:other->__flipOne]))) {
     return NO;
   }
-  if ((__q_isset != other->__q_isset) ||
-      (__q_isset && ((__q || other->__q) && ![__q isEqual:other->__q]))) {
+  if ((__flipTwo_isset != other->__flipTwo_isset) ||
+      (__flipTwo_isset && ((__flipTwo || other->__flipTwo) && ![__flipTwo isEqual:other->__flipTwo]))) {
     return NO;
   }
   if ((__versionId_isset != other->__versionId_isset) ||
@@ -560,8 +560,8 @@
 - (void) dealloc
 {
   [__queryVector release_stub];
-  [__p release_stub];
-  [__q release_stub];
+  [__flipOne release_stub];
+  [__flipTwo release_stub];
   [super dealloc_stub];
 }
 
@@ -705,46 +705,46 @@
   __queryVector_isset = NO;
 }
 
-- (NSString *) p {
-  return [[__p retain_stub] autorelease_stub];
+- (NSString *) flipOne {
+  return [[__flipOne retain_stub] autorelease_stub];
 }
 
-- (void) setP: (NSString *) p {
-  [p retain_stub];
-  [__p release_stub];
-  __p = p;
-  __p_isset = YES;
+- (void) setFlipOne: (NSString *) flipOne {
+  [flipOne retain_stub];
+  [__flipOne release_stub];
+  __flipOne = flipOne;
+  __flipOne_isset = YES;
 }
 
-- (BOOL) pIsSet {
-  return __p_isset;
+- (BOOL) flipOneIsSet {
+  return __flipOne_isset;
 }
 
-- (void) unsetP {
-  [__p release_stub];
-  __p = nil;
-  __p_isset = NO;
+- (void) unsetFlipOne {
+  [__flipOne release_stub];
+  __flipOne = nil;
+  __flipOne_isset = NO;
 }
 
-- (NSString *) q {
-  return [[__q retain_stub] autorelease_stub];
+- (NSString *) flipTwo {
+  return [[__flipTwo retain_stub] autorelease_stub];
 }
 
-- (void) setQ: (NSString *) q {
-  [q retain_stub];
-  [__q release_stub];
-  __q = q;
-  __q_isset = YES;
+- (void) setFlipTwo: (NSString *) flipTwo {
+  [flipTwo retain_stub];
+  [__flipTwo release_stub];
+  __flipTwo = flipTwo;
+  __flipTwo_isset = YES;
 }
 
-- (BOOL) qIsSet {
-  return __q_isset;
+- (BOOL) flipTwoIsSet {
+  return __flipTwo_isset;
 }
 
-- (void) unsetQ {
-  [__q release_stub];
-  __q = nil;
-  __q_isset = NO;
+- (void) unsetFlipTwo {
+  [__flipTwo release_stub];
+  __flipTwo = nil;
+  __flipTwo_isset = NO;
 }
 
 - (int64_t) versionId {
@@ -848,7 +848,7 @@
       case 9:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setP: fieldValue];
+          [self setFlipOne: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -856,7 +856,7 @@
       case 10:
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
-          [self setQ: fieldValue];
+          [self setFlipTwo: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -922,17 +922,17 @@
       [outProtocol writeFieldEnd];
     }
   }
-  if (__p_isset) {
-    if (__p != nil) {
-      [outProtocol writeFieldBeginWithName: @"p" type: TType_STRING fieldID: 9];
-      [outProtocol writeString: __p];
+  if (__flipOne_isset) {
+    if (__flipOne != nil) {
+      [outProtocol writeFieldBeginWithName: @"flipOne" type: TType_STRING fieldID: 9];
+      [outProtocol writeString: __flipOne];
       [outProtocol writeFieldEnd];
     }
   }
-  if (__q_isset) {
-    if (__q != nil) {
-      [outProtocol writeFieldBeginWithName: @"q" type: TType_STRING fieldID: 10];
-      [outProtocol writeString: __q];
+  if (__flipTwo_isset) {
+    if (__flipTwo != nil) {
+      [outProtocol writeFieldBeginWithName: @"flipTwo" type: TType_STRING fieldID: 10];
+      [outProtocol writeString: __flipTwo];
       [outProtocol writeFieldEnd];
     }
   }
@@ -967,10 +967,10 @@
   [ms appendFormat: @"%f", __epsilon];
   [ms appendString: @",queryVector:"];
   [ms appendFormat: @"%@", __queryVector];
-  [ms appendString: @",p:"];
-  [ms appendFormat: @"\"%@\"", __p];
-  [ms appendString: @",q:"];
-  [ms appendFormat: @"\"%@\"", __q];
+  [ms appendString: @",flipOne:"];
+  [ms appendFormat: @"\"%@\"", __flipOne];
+  [ms appendString: @",flipTwo:"];
+  [ms appendFormat: @"\"%@\"", __flipTwo];
   [ms appendString: @",versionId:"];
   [ms appendFormat: @"%qi", __versionId];
   [ms appendString: @")"];
