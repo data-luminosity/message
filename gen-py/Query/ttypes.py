@@ -66,21 +66,15 @@ class MatchingType:
 class QueryVector:
   """
   Attributes:
-   - sensorType
-   - matchingType
    - ranges
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'sensorType', None, None, ), # 1
-    (2, TType.I32, 'matchingType', None, None, ), # 2
-    (3, TType.LIST, 'ranges', (TType.STRING,None), None, ), # 3
+    (1, TType.LIST, 'ranges', (TType.STRING,None), None, ), # 1
   )
 
-  def __init__(self, sensorType=None, matchingType=None, ranges=None,):
-    self.sensorType = sensorType
-    self.matchingType = matchingType
+  def __init__(self, ranges=None,):
     self.ranges = ranges
 
   def read(self, iprot):
@@ -93,16 +87,6 @@ class QueryVector:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.sensorType = iprot.readI32()
-        else:
-          iprot.skip(ftype)
-      elif fid == 2:
-        if ftype == TType.I32:
-          self.matchingType = iprot.readI32()
-        else:
-          iprot.skip(ftype)
-      elif fid == 3:
         if ftype == TType.LIST:
           self.ranges = []
           (_etype3, _size0) = iprot.readListBegin()
@@ -122,16 +106,8 @@ class QueryVector:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('QueryVector')
-    if self.sensorType is not None:
-      oprot.writeFieldBegin('sensorType', TType.I32, 1)
-      oprot.writeI32(self.sensorType)
-      oprot.writeFieldEnd()
-    if self.matchingType is not None:
-      oprot.writeFieldBegin('matchingType', TType.I32, 2)
-      oprot.writeI32(self.matchingType)
-      oprot.writeFieldEnd()
     if self.ranges is not None:
-      oprot.writeFieldBegin('ranges', TType.LIST, 3)
+      oprot.writeFieldBegin('ranges', TType.LIST, 1)
       oprot.writeListBegin(TType.STRING, len(self.ranges))
       for iter6 in self.ranges:
         oprot.writeString(iter6)
@@ -146,8 +122,6 @@ class QueryVector:
 
   def __hash__(self):
     value = 17
-    value = (value * 31) ^ hash(self.sensorType)
-    value = (value * 31) ^ hash(self.matchingType)
     value = (value * 31) ^ hash(self.ranges)
     return value
 
@@ -170,9 +144,10 @@ class Query:
    - queryStartTime
    - queryEndTime
    - epoch
-   - queryType
-   - epsilon
+   - sensorType
+   - matchingType
    - queryVector
+   - epsilon
    - flipOne
    - flipTwo
    - versionId
@@ -185,23 +160,25 @@ class Query:
     (3, TType.I64, 'queryStartTime', None, None, ), # 3
     (4, TType.I64, 'queryEndTime', None, None, ), # 4
     (5, TType.I64, 'epoch', None, None, ), # 5
-    (6, TType.I32, 'queryType', None, None, ), # 6
-    (7, TType.DOUBLE, 'epsilon', None, None, ), # 7
+    (6, TType.I32, 'sensorType', None, None, ), # 6
+    (7, TType.I32, 'matchingType', None, None, ), # 7
     (8, TType.STRUCT, 'queryVector', (QueryVector, QueryVector.thrift_spec), None, ), # 8
-    (9, TType.STRING, 'flipOne', None, None, ), # 9
-    (10, TType.STRING, 'flipTwo', None, None, ), # 10
-    (11, TType.I64, 'versionId', None, None, ), # 11
+    (9, TType.DOUBLE, 'epsilon', None, None, ), # 9
+    (10, TType.STRING, 'flipOne', None, None, ), # 10
+    (11, TType.STRING, 'flipTwo', None, None, ), # 11
+    (12, TType.I64, 'versionId', None, None, ), # 12
   )
 
-  def __init__(self, analystId=None, queryId=None, queryStartTime=None, queryEndTime=None, epoch=None, queryType=None, epsilon=None, queryVector=None, flipOne=None, flipTwo=None, versionId=None,):
+  def __init__(self, analystId=None, queryId=None, queryStartTime=None, queryEndTime=None, epoch=None, sensorType=None, matchingType=None, queryVector=None, epsilon=None, flipOne=None, flipTwo=None, versionId=None,):
     self.analystId = analystId
     self.queryId = queryId
     self.queryStartTime = queryStartTime
     self.queryEndTime = queryEndTime
     self.epoch = epoch
-    self.queryType = queryType
-    self.epsilon = epsilon
+    self.sensorType = sensorType
+    self.matchingType = matchingType
     self.queryVector = queryVector
+    self.epsilon = epsilon
     self.flipOne = flipOne
     self.flipTwo = flipTwo
     self.versionId = versionId
@@ -242,12 +219,12 @@ class Query:
           iprot.skip(ftype)
       elif fid == 6:
         if ftype == TType.I32:
-          self.queryType = iprot.readI32()
+          self.sensorType = iprot.readI32()
         else:
           iprot.skip(ftype)
       elif fid == 7:
-        if ftype == TType.DOUBLE:
-          self.epsilon = iprot.readDouble()
+        if ftype == TType.I32:
+          self.matchingType = iprot.readI32()
         else:
           iprot.skip(ftype)
       elif fid == 8:
@@ -257,16 +234,21 @@ class Query:
         else:
           iprot.skip(ftype)
       elif fid == 9:
-        if ftype == TType.STRING:
-          self.flipOne = iprot.readString()
+        if ftype == TType.DOUBLE:
+          self.epsilon = iprot.readDouble()
         else:
           iprot.skip(ftype)
       elif fid == 10:
         if ftype == TType.STRING:
-          self.flipTwo = iprot.readString()
+          self.flipOne = iprot.readString()
         else:
           iprot.skip(ftype)
       elif fid == 11:
+        if ftype == TType.STRING:
+          self.flipTwo = iprot.readString()
+        else:
+          iprot.skip(ftype)
+      elif fid == 12:
         if ftype == TType.I64:
           self.versionId = iprot.readI64()
         else:
@@ -301,28 +283,32 @@ class Query:
       oprot.writeFieldBegin('epoch', TType.I64, 5)
       oprot.writeI64(self.epoch)
       oprot.writeFieldEnd()
-    if self.queryType is not None:
-      oprot.writeFieldBegin('queryType', TType.I32, 6)
-      oprot.writeI32(self.queryType)
+    if self.sensorType is not None:
+      oprot.writeFieldBegin('sensorType', TType.I32, 6)
+      oprot.writeI32(self.sensorType)
       oprot.writeFieldEnd()
-    if self.epsilon is not None:
-      oprot.writeFieldBegin('epsilon', TType.DOUBLE, 7)
-      oprot.writeDouble(self.epsilon)
+    if self.matchingType is not None:
+      oprot.writeFieldBegin('matchingType', TType.I32, 7)
+      oprot.writeI32(self.matchingType)
       oprot.writeFieldEnd()
     if self.queryVector is not None:
       oprot.writeFieldBegin('queryVector', TType.STRUCT, 8)
       self.queryVector.write(oprot)
       oprot.writeFieldEnd()
+    if self.epsilon is not None:
+      oprot.writeFieldBegin('epsilon', TType.DOUBLE, 9)
+      oprot.writeDouble(self.epsilon)
+      oprot.writeFieldEnd()
     if self.flipOne is not None:
-      oprot.writeFieldBegin('flipOne', TType.STRING, 9)
+      oprot.writeFieldBegin('flipOne', TType.STRING, 10)
       oprot.writeString(self.flipOne)
       oprot.writeFieldEnd()
     if self.flipTwo is not None:
-      oprot.writeFieldBegin('flipTwo', TType.STRING, 10)
+      oprot.writeFieldBegin('flipTwo', TType.STRING, 11)
       oprot.writeString(self.flipTwo)
       oprot.writeFieldEnd()
     if self.versionId is not None:
-      oprot.writeFieldBegin('versionId', TType.I64, 11)
+      oprot.writeFieldBegin('versionId', TType.I64, 12)
       oprot.writeI64(self.versionId)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
@@ -339,9 +325,10 @@ class Query:
     value = (value * 31) ^ hash(self.queryStartTime)
     value = (value * 31) ^ hash(self.queryEndTime)
     value = (value * 31) ^ hash(self.epoch)
-    value = (value * 31) ^ hash(self.queryType)
-    value = (value * 31) ^ hash(self.epsilon)
+    value = (value * 31) ^ hash(self.sensorType)
+    value = (value * 31) ^ hash(self.matchingType)
     value = (value * 31) ^ hash(self.queryVector)
+    value = (value * 31) ^ hash(self.epsilon)
     value = (value * 31) ^ hash(self.flipOne)
     value = (value * 31) ^ hash(self.flipTwo)
     value = (value * 31) ^ hash(self.versionId)

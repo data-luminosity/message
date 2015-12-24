@@ -36,40 +36,22 @@ enum MatchingType {
 };
 
 @interface QueryVector : NSObject <TBase, NSCoding> {
-  int __sensorType;
-  int __matchingType;
   NSMutableArray * __ranges;
 
-  BOOL __sensorType_isset;
-  BOOL __matchingType_isset;
   BOOL __ranges_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=sensorType, setter=setSensorType:) int sensorType;
-@property (nonatomic, getter=matchingType, setter=setMatchingType:) int matchingType;
 @property (nonatomic, retain, getter=ranges, setter=setRanges:) NSMutableArray * ranges;
 #endif
 
 - (id) init;
-- (id) initWithSensorType: (int) sensorType matchingType: (int) matchingType ranges: (NSMutableArray *) ranges;
+- (id) initWithRanges: (NSMutableArray *) ranges;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
 - (void) validate;
-
-#if !__has_feature(objc_arc)
-- (int) sensorType;
-- (void) setSensorType: (int) sensorType;
-#endif
-- (BOOL) sensorTypeIsSet;
-
-#if !__has_feature(objc_arc)
-- (int) matchingType;
-- (void) setMatchingType: (int) matchingType;
-#endif
-- (BOOL) matchingTypeIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSMutableArray *) ranges;
@@ -85,9 +67,10 @@ enum MatchingType {
   int64_t __queryStartTime;
   int64_t __queryEndTime;
   int64_t __epoch;
-  int __queryType;
-  double __epsilon;
+  int __sensorType;
+  int __matchingType;
   QueryVector * __queryVector;
+  double __epsilon;
   NSString * __flipOne;
   NSString * __flipTwo;
   int64_t __versionId;
@@ -97,9 +80,10 @@ enum MatchingType {
   BOOL __queryStartTime_isset;
   BOOL __queryEndTime_isset;
   BOOL __epoch_isset;
-  BOOL __queryType_isset;
-  BOOL __epsilon_isset;
+  BOOL __sensorType_isset;
+  BOOL __matchingType_isset;
   BOOL __queryVector_isset;
+  BOOL __epsilon_isset;
   BOOL __flipOne_isset;
   BOOL __flipTwo_isset;
   BOOL __versionId_isset;
@@ -111,16 +95,17 @@ enum MatchingType {
 @property (nonatomic, getter=queryStartTime, setter=setQueryStartTime:) int64_t queryStartTime;
 @property (nonatomic, getter=queryEndTime, setter=setQueryEndTime:) int64_t queryEndTime;
 @property (nonatomic, getter=epoch, setter=setEpoch:) int64_t epoch;
-@property (nonatomic, getter=queryType, setter=setQueryType:) int queryType;
-@property (nonatomic, getter=epsilon, setter=setEpsilon:) double epsilon;
+@property (nonatomic, getter=sensorType, setter=setSensorType:) int sensorType;
+@property (nonatomic, getter=matchingType, setter=setMatchingType:) int matchingType;
 @property (nonatomic, retain, getter=queryVector, setter=setQueryVector:) QueryVector * queryVector;
+@property (nonatomic, getter=epsilon, setter=setEpsilon:) double epsilon;
 @property (nonatomic, retain, getter=flipOne, setter=setFlipOne:) NSString * flipOne;
 @property (nonatomic, retain, getter=flipTwo, setter=setFlipTwo:) NSString * flipTwo;
 @property (nonatomic, getter=versionId, setter=setVersionId:) int64_t versionId;
 #endif
 
 - (id) init;
-- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch queryType: (int) queryType epsilon: (double) epsilon queryVector: (QueryVector *) queryVector flipOne: (NSString *) flipOne flipTwo: (NSString *) flipTwo versionId: (int64_t) versionId;
+- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId queryStartTime: (int64_t) queryStartTime queryEndTime: (int64_t) queryEndTime epoch: (int64_t) epoch sensorType: (int) sensorType matchingType: (int) matchingType queryVector: (QueryVector *) queryVector epsilon: (double) epsilon flipOne: (NSString *) flipOne flipTwo: (NSString *) flipTwo versionId: (int64_t) versionId;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -158,22 +143,28 @@ enum MatchingType {
 - (BOOL) epochIsSet;
 
 #if !__has_feature(objc_arc)
-- (int) queryType;
-- (void) setQueryType: (int) queryType;
+- (int) sensorType;
+- (void) setSensorType: (int) sensorType;
 #endif
-- (BOOL) queryTypeIsSet;
+- (BOOL) sensorTypeIsSet;
 
 #if !__has_feature(objc_arc)
-- (double) epsilon;
-- (void) setEpsilon: (double) epsilon;
+- (int) matchingType;
+- (void) setMatchingType: (int) matchingType;
 #endif
-- (BOOL) epsilonIsSet;
+- (BOOL) matchingTypeIsSet;
 
 #if !__has_feature(objc_arc)
 - (QueryVector *) queryVector;
 - (void) setQueryVector: (QueryVector *) queryVector;
 #endif
 - (BOOL) queryVectorIsSet;
+
+#if !__has_feature(objc_arc)
+- (double) epsilon;
+- (void) setEpsilon: (double) epsilon;
+#endif
+- (BOOL) epsilonIsSet;
 
 #if !__has_feature(objc_arc)
 - (NSString *) flipOne;

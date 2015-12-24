@@ -131,25 +131,13 @@ func (p *MatchingType) UnmarshalText(text []byte) error {
 }
 
 // Attributes:
-//  - SensorType
-//  - MatchingType
 //  - Ranges
 type QueryVector struct {
-	SensorType   SensorType   `thrift:"sensorType,1" json:"sensorType"`
-	MatchingType MatchingType `thrift:"matchingType,2" json:"matchingType"`
-	Ranges       []string     `thrift:"ranges,3" json:"ranges"`
+	Ranges []string `thrift:"ranges,1" json:"ranges"`
 }
 
 func NewQueryVector() *QueryVector {
 	return &QueryVector{}
-}
-
-func (p *QueryVector) GetSensorType() SensorType {
-	return p.SensorType
-}
-
-func (p *QueryVector) GetMatchingType() MatchingType {
-	return p.MatchingType
 }
 
 func (p *QueryVector) GetRanges() []string {
@@ -173,14 +161,6 @@ func (p *QueryVector) Read(iprot thrift.TProtocol) error {
 			if err := p.readField1(iprot); err != nil {
 				return err
 			}
-		case 2:
-			if err := p.readField2(iprot); err != nil {
-				return err
-			}
-		case 3:
-			if err := p.readField3(iprot); err != nil {
-				return err
-			}
 		default:
 			if err := iprot.Skip(fieldTypeId); err != nil {
 				return err
@@ -197,26 +177,6 @@ func (p *QueryVector) Read(iprot thrift.TProtocol) error {
 }
 
 func (p *QueryVector) readField1(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI32(); err != nil {
-		return thrift.PrependError("error reading field 1: ", err)
-	} else {
-		temp := SensorType(v)
-		p.SensorType = temp
-	}
-	return nil
-}
-
-func (p *QueryVector) readField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI32(); err != nil {
-		return thrift.PrependError("error reading field 2: ", err)
-	} else {
-		temp := MatchingType(v)
-		p.MatchingType = temp
-	}
-	return nil
-}
-
-func (p *QueryVector) readField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return thrift.PrependError("error reading list begin: ", err)
@@ -245,12 +205,6 @@ func (p *QueryVector) Write(oprot thrift.TProtocol) error {
 	if err := p.writeField1(oprot); err != nil {
 		return err
 	}
-	if err := p.writeField2(oprot); err != nil {
-		return err
-	}
-	if err := p.writeField3(oprot); err != nil {
-		return err
-	}
 	if err := oprot.WriteFieldStop(); err != nil {
 		return thrift.PrependError("write field stop error: ", err)
 	}
@@ -261,34 +215,8 @@ func (p *QueryVector) Write(oprot thrift.TProtocol) error {
 }
 
 func (p *QueryVector) writeField1(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("sensorType", thrift.I32, 1); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:sensorType: ", p), err)
-	}
-	if err := oprot.WriteI32(int32(p.SensorType)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.sensorType (1) field write error: ", p), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:sensorType: ", p), err)
-	}
-	return err
-}
-
-func (p *QueryVector) writeField2(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("matchingType", thrift.I32, 2); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:matchingType: ", p), err)
-	}
-	if err := oprot.WriteI32(int32(p.MatchingType)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.matchingType (2) field write error: ", p), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:matchingType: ", p), err)
-	}
-	return err
-}
-
-func (p *QueryVector) writeField3(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("ranges", thrift.LIST, 3); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 3:ranges: ", p), err)
+	if err := oprot.WriteFieldBegin("ranges", thrift.LIST, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:ranges: ", p), err)
 	}
 	if err := oprot.WriteListBegin(thrift.STRING, len(p.Ranges)); err != nil {
 		return thrift.PrependError("error writing list begin: ", err)
@@ -302,7 +230,7 @@ func (p *QueryVector) writeField3(oprot thrift.TProtocol) (err error) {
 		return thrift.PrependError("error writing list end: ", err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 3:ranges: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:ranges: ", p), err)
 	}
 	return err
 }
@@ -320,9 +248,10 @@ func (p *QueryVector) String() string {
 //  - QueryStartTime
 //  - QueryEndTime
 //  - Epoch
-//  - QueryType
-//  - Epsilon
+//  - SensorType
+//  - MatchingType
 //  - QueryVector
+//  - Epsilon
 //  - FlipOne
 //  - FlipTwo
 //  - VersionId
@@ -332,12 +261,13 @@ type Query struct {
 	QueryStartTime int64        `thrift:"queryStartTime,3" json:"queryStartTime"`
 	QueryEndTime   int64        `thrift:"queryEndTime,4" json:"queryEndTime"`
 	Epoch          int64        `thrift:"epoch,5" json:"epoch"`
-	QueryType      SensorType   `thrift:"queryType,6" json:"queryType"`
-	Epsilon        float64      `thrift:"epsilon,7" json:"epsilon"`
+	SensorType     SensorType   `thrift:"sensorType,6" json:"sensorType"`
+	MatchingType   MatchingType `thrift:"matchingType,7" json:"matchingType"`
 	QueryVector    *QueryVector `thrift:"queryVector,8" json:"queryVector"`
-	FlipOne        string       `thrift:"flipOne,9" json:"flipOne"`
-	FlipTwo        string       `thrift:"flipTwo,10" json:"flipTwo"`
-	VersionId      int64        `thrift:"versionId,11" json:"versionId"`
+	Epsilon        float64      `thrift:"epsilon,9" json:"epsilon"`
+	FlipOne        string       `thrift:"flipOne,10" json:"flipOne"`
+	FlipTwo        string       `thrift:"flipTwo,11" json:"flipTwo"`
+	VersionId      int64        `thrift:"versionId,12" json:"versionId"`
 }
 
 func NewQuery() *Query {
@@ -364,12 +294,12 @@ func (p *Query) GetEpoch() int64 {
 	return p.Epoch
 }
 
-func (p *Query) GetQueryType() SensorType {
-	return p.QueryType
+func (p *Query) GetSensorType() SensorType {
+	return p.SensorType
 }
 
-func (p *Query) GetEpsilon() float64 {
-	return p.Epsilon
+func (p *Query) GetMatchingType() MatchingType {
+	return p.MatchingType
 }
 
 var Query_QueryVector_DEFAULT *QueryVector
@@ -379,6 +309,10 @@ func (p *Query) GetQueryVector() *QueryVector {
 		return Query_QueryVector_DEFAULT
 	}
 	return p.QueryVector
+}
+
+func (p *Query) GetEpsilon() float64 {
+	return p.Epsilon
 }
 
 func (p *Query) GetFlipOne() string {
@@ -454,6 +388,10 @@ func (p *Query) Read(iprot thrift.TProtocol) error {
 			if err := p.readField11(iprot); err != nil {
 				return err
 			}
+		case 12:
+			if err := p.readField12(iprot); err != nil {
+				return err
+			}
 		default:
 			if err := iprot.Skip(fieldTypeId); err != nil {
 				return err
@@ -519,16 +457,17 @@ func (p *Query) readField6(iprot thrift.TProtocol) error {
 		return thrift.PrependError("error reading field 6: ", err)
 	} else {
 		temp := SensorType(v)
-		p.QueryType = temp
+		p.SensorType = temp
 	}
 	return nil
 }
 
 func (p *Query) readField7(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadDouble(); err != nil {
+	if v, err := iprot.ReadI32(); err != nil {
 		return thrift.PrependError("error reading field 7: ", err)
 	} else {
-		p.Epsilon = v
+		temp := MatchingType(v)
+		p.MatchingType = temp
 	}
 	return nil
 }
@@ -542,10 +481,10 @@ func (p *Query) readField8(iprot thrift.TProtocol) error {
 }
 
 func (p *Query) readField9(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
+	if v, err := iprot.ReadDouble(); err != nil {
 		return thrift.PrependError("error reading field 9: ", err)
 	} else {
-		p.FlipOne = v
+		p.Epsilon = v
 	}
 	return nil
 }
@@ -554,14 +493,23 @@ func (p *Query) readField10(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 10: ", err)
 	} else {
-		p.FlipTwo = v
+		p.FlipOne = v
 	}
 	return nil
 }
 
 func (p *Query) readField11(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 11: ", err)
+	} else {
+		p.FlipTwo = v
+	}
+	return nil
+}
+
+func (p *Query) readField12(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return thrift.PrependError("error reading field 12: ", err)
 	} else {
 		p.VersionId = v
 	}
@@ -603,6 +551,9 @@ func (p *Query) Write(oprot thrift.TProtocol) error {
 		return err
 	}
 	if err := p.writeField11(oprot); err != nil {
+		return err
+	}
+	if err := p.writeField12(oprot); err != nil {
 		return err
 	}
 	if err := oprot.WriteFieldStop(); err != nil {
@@ -680,27 +631,27 @@ func (p *Query) writeField5(oprot thrift.TProtocol) (err error) {
 }
 
 func (p *Query) writeField6(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("queryType", thrift.I32, 6); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 6:queryType: ", p), err)
+	if err := oprot.WriteFieldBegin("sensorType", thrift.I32, 6); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 6:sensorType: ", p), err)
 	}
-	if err := oprot.WriteI32(int32(p.QueryType)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.queryType (6) field write error: ", p), err)
+	if err := oprot.WriteI32(int32(p.SensorType)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.sensorType (6) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 6:queryType: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 6:sensorType: ", p), err)
 	}
 	return err
 }
 
 func (p *Query) writeField7(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("epsilon", thrift.DOUBLE, 7); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 7:epsilon: ", p), err)
+	if err := oprot.WriteFieldBegin("matchingType", thrift.I32, 7); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 7:matchingType: ", p), err)
 	}
-	if err := oprot.WriteDouble(float64(p.Epsilon)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.epsilon (7) field write error: ", p), err)
+	if err := oprot.WriteI32(int32(p.MatchingType)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.matchingType (7) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 7:epsilon: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 7:matchingType: ", p), err)
 	}
 	return err
 }
@@ -719,40 +670,53 @@ func (p *Query) writeField8(oprot thrift.TProtocol) (err error) {
 }
 
 func (p *Query) writeField9(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("flipOne", thrift.STRING, 9); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 9:flipOne: ", p), err)
+	if err := oprot.WriteFieldBegin("epsilon", thrift.DOUBLE, 9); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 9:epsilon: ", p), err)
 	}
-	if err := oprot.WriteString(string(p.FlipOne)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.flipOne (9) field write error: ", p), err)
+	if err := oprot.WriteDouble(float64(p.Epsilon)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.epsilon (9) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 9:flipOne: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 9:epsilon: ", p), err)
 	}
 	return err
 }
 
 func (p *Query) writeField10(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("flipTwo", thrift.STRING, 10); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 10:flipTwo: ", p), err)
+	if err := oprot.WriteFieldBegin("flipOne", thrift.STRING, 10); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 10:flipOne: ", p), err)
 	}
-	if err := oprot.WriteString(string(p.FlipTwo)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.flipTwo (10) field write error: ", p), err)
+	if err := oprot.WriteString(string(p.FlipOne)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.flipOne (10) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 10:flipTwo: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 10:flipOne: ", p), err)
 	}
 	return err
 }
 
 func (p *Query) writeField11(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("versionId", thrift.I64, 11); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 11:versionId: ", p), err)
+	if err := oprot.WriteFieldBegin("flipTwo", thrift.STRING, 11); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 11:flipTwo: ", p), err)
 	}
-	if err := oprot.WriteI64(int64(p.VersionId)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.versionId (11) field write error: ", p), err)
+	if err := oprot.WriteString(string(p.FlipTwo)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.flipTwo (11) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 11:versionId: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 11:flipTwo: ", p), err)
+	}
+	return err
+}
+
+func (p *Query) writeField12(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("versionId", thrift.I64, 12); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 12:versionId: ", p), err)
+	}
+	if err := oprot.WriteI64(int64(p.VersionId)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.versionId (12) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 12:versionId: ", p), err)
 	}
 	return err
 }
