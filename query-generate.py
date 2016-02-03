@@ -13,10 +13,10 @@ from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
+import base64
+
 import Query
 from Query.ttypes import *
-
-import sys
 
 SERVER_HOST=sys.argv[1]
 TOPIC="queriesv2"
@@ -49,9 +49,6 @@ query.flipOne="0.8"
 query.flipTwo="0.4"
 query.versionId=1
 
-from thrift.protocol import TBinaryProtocol
-from thrift.transport import TTransport
-import base64
 
 transportOut = TTransport.TMemoryBuffer()
 protocolOut = TBinaryProtocol.TBinaryProtocol(transportOut)
@@ -61,7 +58,7 @@ base64bytes=base64.b64encode(bytes)
 
 import requests
 payload = {'topic':TOPIC, 'message':base64bytes, 'key':'0'}
-url='http://%s/message' % (SERVER_HOST)
+url='http://%s/api/message' % (SERVER_HOST)
 r = requests.post(url,data=payload)
 print r.status_code
 print r.text
