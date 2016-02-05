@@ -19,6 +19,8 @@ import base64
 
 import csv
 
+import pysodium
+
 SERVER_HOST=sys.argv[1]
 DBNAME=sys.argv[2]
 DBUSER=sys.argv[3]
@@ -63,16 +65,25 @@ transportOut = TTransport.TMemoryBuffer()
 protocolOut = TBinaryProtocol.TBinaryProtocol(transportOut)
 query.write(protocolOut)
 bytes = transportOut.getvalue()
-base64bytes=base64.b64encode(bytes)
 
-"""
-import requests
-payload = {'topic':TOPIC, 'message':base64bytes, 'key':'0'}
-url='http://%s/api/message' % (SERVER_HOST)
-r = requests.post(url,data=payload)
-print r.status_code
-"""
-#print r.text
+sign_pk=None
+sign_sk=None
+with open("keys/sign_public.key", "rb") as in_file:
+    sign_pk = in_file.read()
+with open("keys/sign_private.key", "rb") as in_file:
+    sign_sk = in_file.read()
+
+signed = pysodium.crypto_sign(bytes, sign_sk)
+base64bytes=base64.b64encode(signed)
+
+#assert can verify and de-serialize
+recoveredbytes=base64.b64decode(base64bytes)
+plaintextbytes=pysodium.crypto_sign_open(recoveredbytes, sign_pk)
+transportIn = TTransport.TMemoryBuffer(plaintextbytes)
+protocolIn = TBinaryProtocol.TBinaryProtocol(transportIn)
+recoveredqueries = Query()
+recoveredqueries.read(protocolIn)
+print(recoveredqueries)
 
 import psycopg2
 import psycopg2.extras
