@@ -1,3 +1,4 @@
 thrift==0.9.3
 requests==2.9.1
 kafka-python==0.9.5
+pysodium==0.6.8
