@@ -17,6 +17,8 @@ from thrift.protocol import TBinaryProtocol
 
 import base64
 
+import csv
+
 SERVER_HOST=sys.argv[1]
 DBNAME=sys.argv[2]
 DBUSER=sys.argv[3]
@@ -24,9 +26,13 @@ TOPIC="queriesv2"
 
 queryvector = QueryVector()
 queryvector.ranges = []
-queryvector.ranges.append("34.069077, -118.445176,5") #Boelter Hall
-queryvector.ranges.append("34.074158, -118.443517,5") #Anderson
-queryvector.ranges.append("34.059703, -118.445056,5") #Yogurtland
+#read in csv
+with open('poi.csv', 'rb') as csvfile:
+    poireader = csv.reader(csvfile, delimiter=',')
+    for row in poireader: 
+        #print(row[0],row[1],row[2])
+        val="%s,%s,%s,%s" % (row[0],row[1],row[2],row[5])
+        queryvector.ranges.append(val)
 
 from datetime import datetime
 import time

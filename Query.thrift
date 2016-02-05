@@ -11,7 +11,7 @@ enum SensorType {
 }
 
 enum MatchingType {
-     LOCATION_MATCHING,  // range element value would be latitude,longitude,z,radius
+     LOCATION_MATCHING,  // range element value would be latitude,longitude,radius,description
      NUMERICAL_MATCHING, // range element value would be 0,4
      STRING_MATCHING     // range element value would be google.com
 }
