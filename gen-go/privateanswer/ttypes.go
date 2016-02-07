@@ -22,12 +22,14 @@ var GoUnusedProtection__ int
 //  - PrivateAnswerBits
 //  - Bitlen
 //  - JoinId
+//  - VersionId
 type PrivateAnswer struct {
 	AnalystId         int64  `thrift:"analystId,1" json:"analystId"`
 	QueryId           int64  `thrift:"queryId,2" json:"queryId"`
 	PrivateAnswerBits []byte `thrift:"privateAnswerBits,3" json:"privateAnswerBits"`
 	Bitlen            int32  `thrift:"bitlen,4" json:"bitlen"`
 	JoinId            int64  `thrift:"joinId,5" json:"joinId"`
+	VersionId         int64  `thrift:"versionId,6" json:"versionId"`
 }
 
 func NewPrivateAnswer() *PrivateAnswer {
@@ -52,6 +54,10 @@ func (p *PrivateAnswer) GetBitlen() int32 {
 
 func (p *PrivateAnswer) GetJoinId() int64 {
 	return p.JoinId
+}
+
+func (p *PrivateAnswer) GetVersionId() int64 {
+	return p.VersionId
 }
 func (p *PrivateAnswer) Read(iprot thrift.TProtocol) error {
 	if _, err := iprot.ReadStructBegin(); err != nil {
@@ -85,6 +91,10 @@ func (p *PrivateAnswer) Read(iprot thrift.TProtocol) error {
 			}
 		case 5:
 			if err := p.readField5(iprot); err != nil {
+				return err
+			}
+		case 6:
+			if err := p.readField6(iprot); err != nil {
 				return err
 			}
 		default:
@@ -147,6 +157,15 @@ func (p *PrivateAnswer) readField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *PrivateAnswer) readField6(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return thrift.PrependError("error reading field 6: ", err)
+	} else {
+		p.VersionId = v
+	}
+	return nil
+}
+
 func (p *PrivateAnswer) Write(oprot thrift.TProtocol) error {
 	if err := oprot.WriteStructBegin("PrivateAnswer"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
@@ -164,6 +183,9 @@ func (p *PrivateAnswer) Write(oprot thrift.TProtocol) error {
 		return err
 	}
 	if err := p.writeField5(oprot); err != nil {
+		return err
+	}
+	if err := p.writeField6(oprot); err != nil {
 		return err
 	}
 	if err := oprot.WriteFieldStop(); err != nil {
@@ -236,6 +258,19 @@ func (p *PrivateAnswer) writeField5(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 5:joinId: ", p), err)
+	}
+	return err
+}
+
+func (p *PrivateAnswer) writeField6(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("versionId", thrift.I64, 6); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 6:versionId: ", p), err)
+	}
+	if err := oprot.WriteI64(int64(p.VersionId)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.versionId (6) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 6:versionId: ", p), err)
 	}
 	return err
 }

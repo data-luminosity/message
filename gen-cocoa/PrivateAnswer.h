@@ -25,12 +25,14 @@
   NSData * __privateAnswerBits;
   int32_t __bitlen;
   int64_t __joinId;
+  int64_t __versionId;
 
   BOOL __analystId_isset;
   BOOL __queryId_isset;
   BOOL __privateAnswerBits_isset;
   BOOL __bitlen_isset;
   BOOL __joinId_isset;
+  BOOL __versionId_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -39,10 +41,11 @@
 @property (nonatomic, retain, getter=privateAnswerBits, setter=setPrivateAnswerBits:) NSData * privateAnswerBits;
 @property (nonatomic, getter=bitlen, setter=setBitlen:) int32_t bitlen;
 @property (nonatomic, getter=joinId, setter=setJoinId:) int64_t joinId;
+@property (nonatomic, getter=versionId, setter=setVersionId:) int64_t versionId;
 #endif
 
 - (id) init;
-- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId privateAnswerBits: (NSData *) privateAnswerBits bitlen: (int32_t) bitlen joinId: (int64_t) joinId;
+- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId privateAnswerBits: (NSData *) privateAnswerBits bitlen: (int32_t) bitlen joinId: (int64_t) joinId versionId: (int64_t) versionId;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -78,6 +81,12 @@
 - (void) setJoinId: (int64_t) joinId;
 #endif
 - (BOOL) joinIdIsSet;
+
+#if !__has_feature(objc_arc)
+- (int64_t) versionId;
+- (void) setVersionId: (int64_t) versionId;
+#endif
+- (BOOL) versionIdIsSet;
 
 @end
 

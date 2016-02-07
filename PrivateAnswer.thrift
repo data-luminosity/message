@@ -5,5 +5,6 @@ struct PrivateAnswer {
     2: i64 queryId,
     3: binary privateAnswerBits,
     4: i32 bitlen,
-    5: i64 joinId
+    5: i64 joinId,
+    6: i64 versionId
 }

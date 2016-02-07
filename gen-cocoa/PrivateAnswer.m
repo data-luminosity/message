@@ -31,7 +31,7 @@
   return self;
 }
 
-- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId privateAnswerBits: (NSData *) privateAnswerBits bitlen: (int32_t) bitlen joinId: (int64_t) joinId
+- (id) initWithAnalystId: (int64_t) analystId queryId: (int64_t) queryId privateAnswerBits: (NSData *) privateAnswerBits bitlen: (int32_t) bitlen joinId: (int64_t) joinId versionId: (int64_t) versionId
 {
   self = [super init];
   __analystId = analystId;
@@ -44,6 +44,8 @@
   __bitlen_isset = YES;
   __joinId = joinId;
   __joinId_isset = YES;
+  __versionId = versionId;
+  __versionId_isset = YES;
   return self;
 }
 
@@ -75,6 +77,11 @@
     __joinId = [decoder decodeInt64ForKey: @"joinId"];
     __joinId_isset = YES;
   }
+  if ([decoder containsValueForKey: @"versionId"])
+  {
+    __versionId = [decoder decodeInt64ForKey: @"versionId"];
+    __versionId_isset = YES;
+  }
   return self;
 }
 
@@ -99,6 +106,10 @@
   if (__joinId_isset)
   {
     [encoder encodeInt64: __joinId forKey: @"joinId"];
+  }
+  if (__versionId_isset)
+  {
+    [encoder encodeInt64: __versionId forKey: @"versionId"];
   }
 }
 
@@ -130,6 +141,11 @@
   {
     hash = (hash * 31) ^ [@(__joinId) hash];
   }
+  hash = (hash * 31) ^ __versionId_isset ? 2654435761 : 0;
+  if (__versionId_isset)
+  {
+    hash = (hash * 31) ^ [@(__versionId) hash];
+  }
   return hash;
 }
 
@@ -160,6 +176,10 @@
   }
   if ((__joinId_isset != other->__joinId_isset) ||
       (__joinId_isset && (__joinId != other->__joinId))) {
+    return NO;
+  }
+  if ((__versionId_isset != other->__versionId_isset) ||
+      (__versionId_isset && (__versionId != other->__versionId))) {
     return NO;
   }
   return YES;
@@ -260,6 +280,23 @@
   __joinId_isset = NO;
 }
 
+- (int64_t) versionId {
+  return __versionId;
+}
+
+- (void) setVersionId: (int64_t) versionId {
+  __versionId = versionId;
+  __versionId_isset = YES;
+}
+
+- (BOOL) versionIdIsSet {
+  return __versionId_isset;
+}
+
+- (void) unsetVersionId {
+  __versionId_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -315,6 +352,14 @@
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 6:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setVersionId: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -353,6 +398,11 @@
     [outProtocol writeI64: __joinId];
     [outProtocol writeFieldEnd];
   }
+  if (__versionId_isset) {
+    [outProtocol writeFieldBeginWithName: @"versionId" type: TType_I64 fieldID: 6];
+    [outProtocol writeI64: __versionId];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -373,6 +423,8 @@
   [ms appendFormat: @"%i", __bitlen];
   [ms appendString: @",joinId:"];
   [ms appendFormat: @"%qi", __joinId];
+  [ms appendString: @",versionId:"];
+  [ms appendFormat: @"%qi", __versionId];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
