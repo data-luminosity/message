@@ -33,7 +33,7 @@ with open('poi.csv', 'rb') as csvfile:
     poireader = csv.reader(csvfile, delimiter=',')
     for row in poireader: 
         #print(row[0],row[1],row[2])
-        val="%s,%s,%s,%s" % (row[0],row[1],row[2],row[5])
+        val="%s,%s,%s,%s" % (row[1],row[2],row[3],row[6])
         queryvector.ranges.append(val)
 
 from datetime import datetime
