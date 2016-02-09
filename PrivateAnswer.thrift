@@ -1,4 +1,4 @@
-namespace java com.dataluminosity.message
+namespace java com.dataluminosity.privacy.message
 
 struct PrivateAnswer {
     1: i64 analystId,

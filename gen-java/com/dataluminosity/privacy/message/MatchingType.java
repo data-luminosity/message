@@ -4,25 +4,21 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package com.dataluminosity.message;
+package com.dataluminosity.privacy.message;
 
 
 import java.util.Map;
 import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
-public enum SensorType implements org.apache.thrift.TEnum {
-  LOCATION(0),
-  GYROSCOPE(1),
-  ACCELEROMETER(2),
-  MAGNETOMETER(3),
-  PROXIMITY(4),
-  BRIGHTNESS(5),
-  SOUNDLEVEL(6);
+public enum MatchingType implements org.apache.thrift.TEnum {
+  LOCATION_MATCHING(0),
+  NUMERICAL_MATCHING(1),
+  STRING_MATCHING(2);
 
   private final int value;
 
-  private SensorType(int value) {
+  private MatchingType(int value) {
     this.value = value;
   }
 
@@ -37,22 +33,14 @@ public enum SensorType implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static SensorType findByValue(int value) { 
+  public static MatchingType findByValue(int value) { 
     switch (value) {
       case 0:
-        return LOCATION;
+        return LOCATION_MATCHING;
       case 1:
-        return GYROSCOPE;
+        return NUMERICAL_MATCHING;
       case 2:
-        return ACCELEROMETER;
-      case 3:
-        return MAGNETOMETER;
-      case 4:
-        return PROXIMITY;
-      case 5:
-        return BRIGHTNESS;
-      case 6:
-        return SOUNDLEVEL;
+        return STRING_MATCHING;
       default:
         return null;
     }
