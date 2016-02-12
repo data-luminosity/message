@@ -49,14 +49,14 @@ query.analystId=1
 query.queryId=1
 query.queryStartTime=startts
 query.queryEndTime=endts
-query.epoch=60000
+query.epoch=5000
 query.sensorType = SensorType.LOCATION
 query.matchingType = MatchingType.LOCATION_MATCHING
 query.queryVector=queryvector
 query.epsilon=0.005
 query.flipOne="0.8"
 query.flipTwo="0.4"
-query.versionId=1
+query.versionId=2
 
 print(query)
 
