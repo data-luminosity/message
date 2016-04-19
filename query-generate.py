@@ -32,8 +32,9 @@ queryvector.ranges = []
 with open('poi.csv', 'rb') as csvfile:
     poireader = csv.reader(csvfile, delimiter=',')
     for row in poireader: 
-        #print(row[0],row[1],row[2])
-        val="%s,%s,%s,%s" % (row[1],row[2],row[3],row[6])
+        #lat,long,radius,name
+        val="%s,%s,%s,%s" % (row[1],row[2],row[3],row[4])
+        print(val)
         queryvector.ranges.append(val)
 
 from datetime import datetime
