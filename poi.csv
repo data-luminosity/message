@@ -7,15 +7,15 @@
 7,34.07363,-118.439238,45,Lu Valle Commons,restaurant,lu
 8,34.074428,-118.442342,45,Northern Lights Café,cafe,lights
 9,34.075941,-118.44092,45,Broad Art Center Café,cafe,broad
-10,34.072606,-118.450259,45,Bruin Café,cafe,bcaf
-11,34.072602,-118.450881,45,Café 1919,cafe,1919
+10,34.072606,-118.450259,35,Bruin Café,cafe,bcaf
+11,34.072602,-118.450881,20,Café 1919,cafe,1919
 12,34.067321,-118.444684,45,Café Synapse,cafe,synap
 13,34.070581,-118.443359,45,Kerckhoff,cafe,kerck
 14,34.071363,-118.449816,45,BPlate,dininghall,bplate
 15,34.072117,-118.45223,45,Feast,dininghall,feast
 16,34.070374,-118.450169,45,De Neve,dininghall,nev
 17,34.073091,-118.4499,45,Covel Commons,dininghall,cov
-18,34.0726614,-118.4517945,45,Rendezvous,rend
+18,34.0726614,-118.4517945,45,Rendezvous,dininghall,rend
 19,34.074416,-118.439181,45,Arts Library,library,ART
 20,34.066681,-118.44242,45,Biomedical Library,library,BIO
 21,34.074617,-118.441295,45,East Asian Library,library,EAL
