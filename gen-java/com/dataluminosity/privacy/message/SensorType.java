@@ -18,7 +18,10 @@ public enum SensorType implements org.apache.thrift.TEnum {
   MAGNETOMETER(3),
   PROXIMITY(4),
   BRIGHTNESS(5),
-  SOUNDLEVEL(6);
+  SOUNDLEVEL(6),
+  BATTERYLEVEL(7),
+  WIFIDATAUSAGE(8),
+  CELLDATAUSAGE(9);
 
   private final int value;
 
@@ -53,6 +56,12 @@ public enum SensorType implements org.apache.thrift.TEnum {
         return BRIGHTNESS;
       case 6:
         return SOUNDLEVEL;
+      case 7:
+        return BATTERYLEVEL;
+      case 8:
+        return WIFIDATAUSAGE;
+      case 9:
+        return CELLDATAUSAGE;
       default:
         return null;
     }

@@ -26,7 +26,10 @@ enum SensorType {
   SensorType_MAGNETOMETER = 3,
   SensorType_PROXIMITY = 4,
   SensorType_BRIGHTNESS = 5,
-  SensorType_SOUNDLEVEL = 6
+  SensorType_SOUNDLEVEL = 6,
+  SensorType_BATTERYLEVEL = 7,
+  SensorType_WIFIDATAUSAGE = 8,
+  SensorType_CELLDATAUSAGE = 9
 };
 
 enum MatchingType {

@@ -7,7 +7,10 @@ enum SensorType {
     MAGNETOMETER,
     PROXIMITY,
     BRIGHTNESS,
-    SOUNDLEVEL
+    SOUNDLEVEL,
+    BATTERYLEVEL,
+    WIFIDATAUSAGE,
+    CELLDATAUSAGE
 }
 
 enum MatchingType {

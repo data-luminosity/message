@@ -26,6 +26,9 @@ const (
 	SensorType_PROXIMITY     SensorType = 4
 	SensorType_BRIGHTNESS    SensorType = 5
 	SensorType_SOUNDLEVEL    SensorType = 6
+	SensorType_BATTERYLEVEL  SensorType = 7
+	SensorType_WIFIDATAUSAGE SensorType = 8
+	SensorType_CELLDATAUSAGE SensorType = 9
 )
 
 func (p SensorType) String() string {
@@ -44,6 +47,12 @@ func (p SensorType) String() string {
 		return "BRIGHTNESS"
 	case SensorType_SOUNDLEVEL:
 		return "SOUNDLEVEL"
+	case SensorType_BATTERYLEVEL:
+		return "BATTERYLEVEL"
+	case SensorType_WIFIDATAUSAGE:
+		return "WIFIDATAUSAGE"
+	case SensorType_CELLDATAUSAGE:
+		return "CELLDATAUSAGE"
 	}
 	return "<UNSET>"
 }
@@ -64,6 +73,12 @@ func SensorTypeFromString(s string) (SensorType, error) {
 		return SensorType_BRIGHTNESS, nil
 	case "SOUNDLEVEL":
 		return SensorType_SOUNDLEVEL, nil
+	case "BATTERYLEVEL":
+		return SensorType_BATTERYLEVEL, nil
+	case "WIFIDATAUSAGE":
+		return SensorType_WIFIDATAUSAGE, nil
+	case "CELLDATAUSAGE":
+		return SensorType_CELLDATAUSAGE, nil
 	}
 	return SensorType(0), fmt.Errorf("not a valid SensorType string")
 }

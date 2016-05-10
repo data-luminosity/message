@@ -24,6 +24,9 @@ class SensorType:
   PROXIMITY = 4
   BRIGHTNESS = 5
   SOUNDLEVEL = 6
+  BATTERYLEVEL = 7
+  WIFIDATAUSAGE = 8
+  CELLDATAUSAGE = 9
 
   _VALUES_TO_NAMES = {
     0: "LOCATION",
@@ -33,6 +36,9 @@ class SensorType:
     4: "PROXIMITY",
     5: "BRIGHTNESS",
     6: "SOUNDLEVEL",
+    7: "BATTERYLEVEL",
+    8: "WIFIDATAUSAGE",
+    9: "CELLDATAUSAGE",
   }
 
   _NAMES_TO_VALUES = {
@@ -43,6 +49,9 @@ class SensorType:
     "PROXIMITY": 4,
     "BRIGHTNESS": 5,
     "SOUNDLEVEL": 6,
+    "BATTERYLEVEL": 7,
+    "WIFIDATAUSAGE": 8,
+    "CELLDATAUSAGE": 9,
   }
 
 class MatchingType:
