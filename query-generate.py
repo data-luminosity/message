@@ -26,8 +26,8 @@ DBNAME=sys.argv[2]
 DBUSER=sys.argv[3]
 TOPIC="queriesv2"
 
-queryvector = QueryVector()
-queryvector.ranges = []
+locationqueryvector = QueryVector()
+locationqueryvector.ranges = []
 #read in csv
 with open('poi.csv', 'rb') as csvfile:
     poireader = csv.reader(csvfile, delimiter=',')
@@ -35,7 +35,24 @@ with open('poi.csv', 'rb') as csvfile:
         #lat,long,radius,name
         val="%s,%s,%s,%s" % (row[1],row[2],row[3],row[4])
         print(val)
-        queryvector.ranges.append(val)
+        locationqueryvector.ranges.append(val)
+
+batterylevelqueryvector = QueryVector()
+batterylevelqueryvector.ranges = []
+for i in xrange(1,100,10):
+    start=i
+    end=i+9
+    val="%d,%d" % (start,end)
+    batterylevelqueryvector.ranges.append(val)
+
+celldataqueryvector = QueryVector()
+celldataqueryvector.ranges = []
+#MB
+for i in xrange(1,2000,100):
+    start=i
+    end=i+99
+    val="%d,%d" % (start,end)
+    celldataqueryvector.ranges.append(val)
 
 from datetime import datetime
 import time
@@ -51,9 +68,19 @@ query.queryId=1
 query.queryStartTime=startts
 query.queryEndTime=endts
 query.epoch=300000
+
 query.sensorType = SensorType.LOCATION
 query.matchingType = MatchingType.LOCATION_MATCHING
-query.queryVector=queryvector
+query.queryVector=locationqueryvector
+
+query.sensorType = SensorType.BATTERYLEVEL
+query.matchingType = MatchingType.NUMERICAL_MATCHING
+query.queryVector=batterylevelqueryvector
+
+query.sensorType = SensorType.CELLDATAUSAGE
+query.matchingType = MatchingType.NUMERICAL_MATCHING
+query.queryVector=celldataqueryvector
+
 query.epsilon=0.005
 query.flipOne="0.8"
 query.flipTwo="0.4"
