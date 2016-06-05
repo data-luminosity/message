@@ -21,10 +21,7 @@ import csv
 
 import pysodium
 
-SERVER_HOST=sys.argv[1]
-DBNAME=sys.argv[2]
-DBUSER=sys.argv[3]
-TOPIC="queriesv2"
+import os
 
 locationqueryvector = QueryVector()
 locationqueryvector.ranges = []
@@ -113,6 +110,38 @@ recoveredqueries = Query()
 recoveredqueries.read(protocolIn)
 print(recoveredqueries)
 
+queryFile = open ("queries/ucla.query", "wb")
+querybytearray=bytearray(base64bytes)
+queryFile.write(querybytearray)
+
+
+keyfile=os.path.join(".","keys/sign_public.key")
+with open(keyfile, "rb") as in_file:
+    sign_pk = in_file.read()
+
+queryFile = open("queries/ucla.query", "rb")
+querybytearray = queryFile.read()
+recoveredbytes=base64.b64decode(querybytearray)
+bytes=pysodium.crypto_sign_open(recoveredbytes, sign_pk)
+transportIn = TTransport.TMemoryBuffer(bytes)
+protocolIn = TBinaryProtocol.TBinaryProtocol(transportIn)
+from query_privateanswer.Query import ttypes
+from query_privateanswer.Query.ttypes import Query as Q
+import json
+queries = Q()
+queries.read(protocolIn)
+s=json.dumps(queries, default=lambda o: o.__dict__)
+
+queryjsonFile = open("queries/ucla.query.json", "wb")
+queryjsonFile.write(s)
+
+
+
+"""
+SERVER_HOST=sys.argv[1]
+DBNAME=sys.argv[2]
+DBUSER=sys.argv[3]
+
 import psycopg2
 import psycopg2.extras
 try:
@@ -130,4 +159,4 @@ querystring=querystring1+querystring2
 print querystring
 cur.execute(querystring,namedict)
 conn.commit()
-
+"""
